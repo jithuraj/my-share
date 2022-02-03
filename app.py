@@ -6,9 +6,16 @@ totalAmount = 0
 currentInput='dummy data'
 amountPerPerson = 0
 
-while(currentInput != ''):
+howMany= input('How many friends?\n')
+howMany = int(howMany)
+
+for i in range(howMany):
     currentInput = input('Name: ')
-    if currentInput != '':friends[currentInput]=0
+    friends[currentInput]=0
+
+# while(currentInput != ''):
+#     currentInput = input('Name: ')
+#     if currentInput != '':friends[currentInput]=0
 
 print('\n')
 
@@ -24,21 +31,17 @@ print(f'per person = {amountPerPerson}')
 # print('\n\n')
 for friend in friends:
     toPay = friends[friend]-amountPerPerson
-    # print(f'{friend} {toPay}')
     amountToPay[friend]=toPay
 
 print('\n')
-# print(amountToPay)
 
-# print('\n')
-# print(amountToPay)
 
 friendBalances=amountToPay
 
 print('balances')
 print(friendBalances)
 
-for friend in friendBalances:
+for friend in friends:
 
     if friendBalances[friend]==0:
         # nothing to pay
@@ -48,22 +51,28 @@ for friend in friendBalances:
         print('')
         # pay to someone
 
-        for temp in friendBalances:
+        for temp in friends:
 
             if temp!=friend:
                 # both are not the same person
 
-                if friendBalances[temp]>0:      
-
-                    # amountPaid = abs(friendBalances[friend])            
-
-                 
-                    #     print(f'{friend} to {temp} Rs. {paidAmount}')
-                    #     print(friendBalances)
-                   
-
-    else:
-        #get from someone
-        print('')
+                if friendBalances[temp]>0:
+                    currentPayment = friendBalances[friend]+friendBalances[temp]
+                    if currentPayment>0:
+                        amount= abs(friendBalances[friend])
+                        print(f'{friend} to {temp} Rs. {amount}')
+                        friendBalances[temp]=friendBalances[friend]+friendBalances[temp]
+                        friendBalances[friend]=0
+                    elif currentPayment<0:
+                        amount= abs(friendBalances[temp])
+                        print(f'{friend} to {temp} Rs. {amount}')
+                        friendBalances[friend]=friendBalances[friend]+friendBalances[temp]
+                        friendBalances[temp]=0
+                        # print(f'{temp} to {friend} Rs. {friendBalances[temp]}')
+                    elif currentPayment==0:
+                        amount= abs(friendBalances[temp])
+                        print(f'{friend} to {temp} Rs. {amount}')
+                        friendBalances[temp]=0
+                        friendBalances[friend]=0
 
         
